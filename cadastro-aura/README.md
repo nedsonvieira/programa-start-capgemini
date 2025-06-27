@@ -1,5 +1,7 @@
 ## 🧾 Tela de Cadastro de Pessoa - Salesforce (Aura)
 
+![Tela do Projeto](image.png)
+
 Este projeto implementa uma **tela de cadastro de pessoa** utilizando **Aura Components** no Salesforce. Ele permite ao usuário inserir e salvar informações básicas em um registro customizado via controller Apex.
 
 ### 🎓 Contexto
