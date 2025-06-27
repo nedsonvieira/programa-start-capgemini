@@ -1,5 +1,7 @@
 ## 🧮 Calculadora Simples em Aura - Salesforce
 
+![Tela do Projeto](image.png)
+
 Este projeto é uma calculadora simples desenvolvida usando o framework **Aura** do Salesforce. Ele permite realizar operações básicas como adição, subtração, multiplicação e divisão diretamente na interface do Lightning.
 
 ### 🎓 Contexto
