@@ -1,0 +1,152 @@
+<aura:component controller="PessoaController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <aura:attribute name="pessoa" type="Pessoa__c" default="{'sobjectType': 'Pessoa__c'}" />
+    
+    <aura:attribute name="columns" type="List" default="[]" /> 
+    <aura:attribute name="data" type="List" default="[]" />
+    
+    <aura:attribute name="modalIsOpen" type="Boolean" default="false" />
+    <aura:attribute name="editPessoa" type="Pessoa__c" default="{'sobjectType': 'Pessoa__c'}" />
+    <aura:attribute name="correctedDate" type="String" />
+    
+    <aura:handler name="init" value="{! this }" action="{! c.init }" />
+    
+    <div class="slds-align_absolute-center">
+        <lightning:card class="slds-size_2-of-3 slds-m-around_large" title="Cadastrar Pessoa">
+            
+            <lightning:layout multipleRows="true">
+                <lightning:layoutItem padding="around-medium" size="6">
+                    
+                    <lightning:input type="text"
+                                     label="Nome" 
+                                     value="{!v.pessoa.Nome__c}" 
+                                     required="true"/>
+                    
+                    <lightning:input type="date"
+                                     label="Data de Nascimento" 
+                                     value="{!v.pessoa.Data_de_Nascimento__c}"
+                                     dateStyle="short"
+                                     placeholder="31/12/2024"
+                                     required="true"/>
+                    
+                    <lightning:input type="tel" 
+                                     label="Telefone" 
+                                     value="{!v.pessoa.Telefone__c}"
+                                     placeholder="(99) 9 9999-9999"
+                                     onkeyup="{!c.maskPhone}"
+                                     required="true"/>
+                    
+                    <div class="slds-m-top_large slds-grid slds-grid_align-end">
+                        <lightning:button variant="brand" label="Salvar" title="Salvar" onclick="{! c.save }" />
+                    </div>
+                </lightning:layoutItem>
+                
+                <lightning:layoutItem padding="around-medium" size="6">
+                    <div>
+                        <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped slds-m-top_medium slds-table_fixed-layout">
+                            <thead>
+                                <tr class="slds-line-height_reset">
+                                    <th style="width: 80px;" scope="col"><div class="slds-truncate"></div></th>
+                                    <th scope="col"><div class="slds-truncate" title="Nome">Nome</div></th>
+                                    <th scope="col"><div class="slds-truncate" title="Data de Nascimento">Data de Nascimento</div></th>
+                                    <th scope="col"><div class="slds-truncate" title="Telefone">Telefone</div></th>
+                                </tr>
+                            </thead>
+                        </table>
+                        
+                        <div style="max-height: 130px; overflow-y: auto;">
+                            <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped slds-table_fixed-layout">
+                                <tbody>
+                                    <aura:iteration items="{!v.data}" var="pessoa">
+                                        <tr class="slds-hint-parent">
+                                            <td style="width: 80px;">
+                                                <div class="slds-grid slds-grid_align-space">
+                                                    <div class="slds-col">
+                                                        <lightning:buttonIcon 
+                                                                              iconName="utility:edit" 
+                                                                              title="Editar"
+                                                                              variant="bare"
+                                                                              iconClass="dark"
+                                                                              alternativeText="Editar"
+                                                                              onclick="{!c.edit}"
+                                                                              value="{!pessoa.Id}"
+                                                                              class="slds-button__icon_small"/>
+                                                    </div>
+                                                    <div class="slds-col">
+                                                        <lightning:buttonIcon 
+                                                                              iconName="utility:delete" 
+                                                                              title="Excluir"
+                                                                              variant="bare"
+                                                                              iconClass="dark"
+                                                                              alternativeText="Excluir"
+                                                                              onclick="{!c.delete}"
+                                                                              value="{!pessoa.Id}"
+                                                                              class="slds-button__icon_small"/>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>{!pessoa.Nome__c}</td>
+                                            <td>
+                                                <lightning:formattedDateTime 
+                                                                             value="{!pessoa.Data_de_Nascimento__c}" 
+                                                                             year="numeric" 
+                                                                             month="numeric" 
+                                                                             day="numeric" 
+                                                                             dateStyle="short"/>
+                                            </td>
+                                            <td>{!pessoa.Telefone__c}</td>
+                                        </tr>
+                                    </aura:iteration>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                </lightning:layoutItem>
+            </lightning:layout>
+        </lightning:card>
+    </div>
+    <aura:if isTrue="{!v.modalIsOpen}">
+        <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open slds-backdrop">
+            <div class="slds-modal__container">
+                
+                <lightning:buttonIcon iconName="utility:close" 
+                                      variant="bare" 
+                                      alternativeText="Cancelar e Fechar" 
+                                      iconClass="dark" 
+                                      title="Cancelar e Fechar"
+                                      />
+                
+                <header class="slds-modal__header">
+                    <h2 class="slds-modal__title">Editar Pessoa</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium">
+                    
+                    <lightning:input type="text" 
+                                     label="Nome"
+                                     value="{!v.editPessoa.Nome__c}" 
+                                     required="true"/>
+                    
+                    <lightning:input type="date"
+                                     label="Data de Nascimento" 
+                                     value="{!v.correctedDate}" 
+                                     onchange="{!c.updateDataNasc}"
+                                     dateStyle="short"
+                                     placeholder="31/12/2024"
+                                     required="true"/>
+                    
+                    <lightning:input type="tel" 
+                                     label="Telefone" 
+                                     value="{!v.editPessoa.Telefone__c}" 
+                                     placeholder="(99) 9 9999-9999"
+                                     onkeyup="{!c.maskPhone}"
+                                     required="true"/>
+                    
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning:button variant="neutral" label="Cancelar" onclick="{!c.closeModal}" />
+                    <lightning:button variant="brand" label="Salvar" onclick="{!c.saveEdit}" />
+                </footer>
+            </div>
+        </section>
+    </aura:if>
+</aura:component>
