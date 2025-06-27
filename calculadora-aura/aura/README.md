@@ -4,10 +4,6 @@
 
 Este projeto é uma calculadora simples desenvolvida usando o framework **Aura** do Salesforce. Ele permite realizar operações básicas como adição, subtração, multiplicação e divisão diretamente na interface do Lightning.
 
-### 🎓 Contexto
-
-Este projeto foi desenvolvido como **solução para o desafio proposto no programa Start by Capgemini**, durante a trilha de **Salesforce** e o curso de **Aura Components**. Ele demonstra o uso prático dos conhecimentos adquiridos ao longo da formação.
-
 ### 📁 Estrutura do Projeto
 
 ```bash
