@@ -4,12 +4,6 @@
 
 Este projeto implementa uma **tela de cadastro de pessoa** utilizando **Aura Components** no Salesforce. Ele permite ao usuário inserir e salvar informações básicas em um registro customizado via controller Apex.
 
-### 🎓 Contexto
-
-Este projeto foi desenvolvido como **solução para o desafio do programa Start by Capgemini**, dentro da trilha de **Salesforce** e do curso de **Aura Components**. O desafio consistia em criar uma tela funcional de cadastro que se comunicasse com um controller Apex.
-
----
-
 ### ⚙️ Pré-requisitos
 
 Antes de executar o projeto, é necessário configurar os seguintes recursos na sua org Salesforce:
