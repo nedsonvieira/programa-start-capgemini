@@ -18,7 +18,6 @@ aura/
 │   ├── CalcComponent.cmp-meta.xml       # Arquivo de metadados
 │   ├── CalcComponent.css                # Estilo do componente
 │   ├── CalcComponentController.js       # Controlador client-side
-│   └── CalcComponentHelper.js           # Funções auxiliares
 ```
 
 
@@ -29,9 +28,7 @@ aura/
 - **CalcComponent.cmp**: Define o layout e os elementos de entrada da calculadora.
     
 - **CalcComponentController.js**: Controla os eventos acionados pelos botões.
-    
-- **CalcComponentHelper.js**: Implementa a lógica de cálculo.
-    
+        
 - **CalcComponent.css**: Aplica o estilo visual ao componente.
     
 
